@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | Focus Zone</title>
+
+    <link rel="icon" href="logo.jpg">
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+
+            background: #101010;
+
+            color: white;
+
+            min-height: 100vh;
+        }
+
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+            width: 218px;
+
+            height: 100vh;
+
+            position: fixed;
+
+            left: 0;
+
+            top: 0;
+
+            background: #111111;
+
+            border-right: 1px solid #292929;
+
+            padding: 18px 12px;
+        }
+
+
+        .logo {
+            font-size: 22px;
+
+            font-weight: bold;
+
+            padding-left: 10px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .logo span {
+            color: #d8c1a3;
+        }
+
+
+        /* SEARCH */
+
+        .search {
+            background: #1a1a1a;
+
+            border: 1px solid #303030;
+
+            padding: 9px 12px;
+
+            border-radius: 7px;
+
+            color: #888;
+
+            font-size: 12px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* MENU TITLE */
+
+        .menu-title {
+            color: #666;
+
+            font-size: 10px;
+
+            margin: 0 10px 8px;
+        }
+
+
+        /* MENU */
+
+        .menu a {
+            display: block;
+
+            color: #999;
+
+            text-decoration: none;
+
+            padding: 10px;
+
+            margin: 3px 0;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+
+        .menu a:hover,
+        .menu .active {
+            background: #292929;
+
+            color: white;
+        }
+
+
+        /* PROFILE */
+
+        .profile {
+            position: absolute;
+
+            bottom: 18px;
+
+            left: 12px;
+
+            right: 12px;
+
+            border-top: 1px solid #292929;
+
+            padding-top: 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .profile-icon {
+            width: 34px;
+
+            height: 34px;
+
+            border-radius: 50%;
+
+            background: #d8c1a3;
+
+            color: #111;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+
+        .profile-name {
+            font-size: 12px;
+        }
+
+
+        .profile-plan {
+            color: #666;
+
+            font-size: 10px;
+
+            margin-top: 3px;
+        }
+
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+            margin-left: 218px;
+
+            padding: 30px;
+
+            max-width: 1100px;
+        }
+
+
+        h1 {
+            font-size: 25px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .subtitle {
+            color: #777;
+
+            font-size: 12px;
+
+            margin-bottom: 25px;
+        }
+
+
+
+        /* =========================
+           SECTION
+        ========================= */
+
+        .section {
+            margin-bottom: 22px;
+        }
+
+
+        .section-title {
+            color: #777;
+
+            font-size: 10px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            margin: 0 0 8px 5px;
+        }
+
+
+        .settings-box {
+            background: #191919;
+
+            border: 1px solid #292929;
+
+            border-radius: 9px;
+
+            overflow: hidden;
+        }
+
+
+
+        /* =========================
+           PROFILE
+        ========================= */
+
+        .profile-card {
+            padding: 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border-bottom: 1px solid #292929;
+        }
+
+
+        .profile-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .profile-image {
+            width: 46px;
+
+            height: 46px;
+
+            border-radius: 50%;
+
+            background: #d8c1a3;
+
+            color: #111;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 18px;
+
+            font-weight: bold;
+        }
+
+
+        .account-name {
+            font-size: 14px;
+
+            font-weight: bold;
+        }
+
+
+        .account-email {
+            color: #777;
+
+            font-size: 11px;
+
+            margin-top: 4px;
+        }
+
+
+        .manage {
+            background: #252525;
+
+            border: 1px solid #333;
+
+            color: white;
+
+            padding: 8px 13px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+        }
+
+
+        .manage:hover {
+            background: #303030;
+        }
+
+
+
+        /* =========================
+           SETTING ROW
+        ========================= */
+
+        .setting {
+            min-height: 62px;
+
+            padding: 13px 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            border-bottom: 1px solid #292929;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+
+        .setting:last-child {
+            border-bottom: none;
+        }
+
+
+        .setting:hover {
+            background: #1e1e1e;
+        }
+
+
+        .setting-left {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+
+        .icon {
+            width: 36px;
+
+            height: 36px;
+
+            border-radius: 8px;
+
+            background: #252525;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 16px;
+        }
+
+
+        .setting-name {
+            font-size: 13px;
+
+            margin-bottom: 4px;
+        }
+
+
+        .setting-description {
+            color: #777;
+
+            font-size: 11px;
+        }
+
+
+        .arrow {
+            color: #666;
+
+            font-size: 18px;
+        }
+
+
+
+        /* =========================
+           SWITCH
+        ========================= */
+
+        .switch {
+            width: 45px;
+
+            height: 24px;
+
+            background: #333;
+
+            border-radius: 20px;
+
+            padding: 3px;
+
+            cursor: pointer;
+        }
+
+
+        .circle {
+            width: 18px;
+
+            height: 18px;
+
+            background: #777;
+
+            border-radius: 50%;
+
+            transition: 0.2s;
+        }
+
+
+        .switch.active {
+            background: #d8c1a3;
+        }
+
+
+        .switch.active .circle {
+            margin-left: 21px;
+
+            background: #111;
+        }
+
+
+
+        /* =========================
+           SELECT
+        ========================= */
+
+        select {
+            background: #222;
+
+            color: white;
+
+            border: 1px solid #333;
+
+            padding: 8px 12px;
+
+            border-radius: 6px;
+
+            outline: none;
+
+            cursor: pointer;
+        }
+
+
+
+        /* =========================
+           DANGER
+        ========================= */
+
+        .danger {
+            color: #d87878;
+        }
+
+
+        .danger:hover {
+            background: #241717;
+        }
+
+
+
+        /* =========================
+           VERSION
+        ========================= */
+
+        .version {
+            text-align: center;
+
+            color: #555;
+
+            font-size: 10px;
+
+            margin: 25px 0 35px;
+        }
+
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 70px;
+            }
+
+
+            .logo {
+                font-size: 0;
+            }
+
+
+            .logo span {
+                font-size: 18px;
+            }
+
+
+            .search,
+            .menu-title,
+            .profile-name {
+                display: none;
+            }
+
+
+            .menu a {
+                font-size: 0;
+
+                text-align: center;
+            }
+
+
+            .main {
+                margin-left: 70px;
+
+                padding: 20px;
+            }
+
+
+            .account-email,
+            .setting-description {
+                display: none;
+            }
+
+        }
+        .app-link{
+            color:white;
+            text-decoration: none;
+        }
+
+        /* FEEDBACK MODAL */
+
+.feedback-modal {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    z-index: 9999;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.feedback-modal.show {
+
+    display: flex;
+
+}
+
+
+.feedback-box {
+
+    width: 420px;
+
+    max-width: 90%;
+
+    background: #191919;
+
+    border: 1px solid #333;
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+    position: relative;
+
+}
+
+
+.feedback-box h2 {
+
+    font-size: 20px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.feedback-box p {
+
+    color: #888;
+
+    font-size: 13px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.feedback-box textarea {
+
+    width: 100%;
+
+    height: 130px;
+
+    resize: none;
+
+    background: #111;
+
+    border: 1px solid #333;
+
+    border-radius: 8px;
+
+    color: white;
+
+    padding: 12px;
+
+    outline: none;
+
+    font-family: Arial, sans-serif;
+
+}
+
+
+.feedback-box textarea:focus {
+
+    border-color: #d8c1a3;
+
+}
+
+
+.feedback-submit {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 11px;
+
+    background: #d8c1a3;
+
+    color: #111;
+
+    border: none;
+
+    border-radius: 7px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.feedback-close {
+
+    position: absolute;
+
+    right: 15px;
+
+    top: 10px;
+
+    background: none;
+
+    border: none;
+
+    color: #aaa;
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <div class="sidebar">
+
+
+        <div class="logo">
+            Focus<span>Zone</span>
+        </div>
+
+
+        <!-- <div class="search">
+            Search... &nbsp;&nbsp; Ctrl K
+        </div> -->
+
+
+        <div class="menu-title">
+            MENU
+        </div>
+
+
+        <div class="menu">
+
+
+            <a href="/home">
+                ▦ &nbsp; Dashboard
+            </a>
+
+
+            <a href="/focus">
+                ◷ &nbsp; Focus
+            </a>
+
+
+            <a href="/tasks">
+                ✓ &nbsp; Tasks
+            </a>
+
+
+            <a href="/location">
+                ▣ &nbsp; Location Detected Areas
+            </a>
+
+
+            <a href="/blocked">
+                ◉ &nbsp; Blocked Apps
+            </a>
+
+
+            <a href="/statistics">
+                ◇ &nbsp; Statistics
+            </a>
+
+
+            <!-- ACTIVE -->
+
+            <a href="/settings" class="active">
+                ⚙ &nbsp; Settings
+            </a>
+
+
+        </div>
+
+
+
+        <!-- PROFILE -->
+
+        <div class="profile">
+
+            <div class="profile-icon">
+                V
+            </div>
+
+
+            <div class="profile-name">
+
+                Vamsi
+
+                <div class="profile-plan">
+                    Free Plan
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================= -->
+
+    <div class="main">
+
+
+        <h1>
+            Settings
+        </h1>
+
+
+        <p class="subtitle">
+            Manage your account, focus protection and preferences.
+        </p>
+
+
+
+        <!-- =========================
+             ACCOUNT
+        ========================= -->
+
+        <div class="section">
+
+
+            <div class="section-title">
+                Your Account
+            </div>
+
+
+            <div class="settings-box">
+
+
+                <div class="profile-card">
+
+
+                    <div class="profile-left">
+
+
+                        <div class="profile-image">
+                            V
+                        </div>
+
+
+                        <div>
+
+                            <div class="account-name">
+                                Vamsi
+                            </div>
+
+                            <div class="account-email">
+                                vamsi@example.com
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <button
+                        class="manage"
+                        onclick="manageAccount()"
+                    >
+                        Manage Account
+                    </button>
+
+
+                </div>
+
+
+
+                <div
+                    class="setting"
+                    onclick="openSetting('password')"
+                >
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            🔒
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Password & Security
+                            </div>
+
+                            <div class="setting-description">
+                                Change your password and secure your account.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             FOCUS PROTECTION
+        ========================= -->
+
+        <div class="section">
+
+
+            <div class="section-title">
+                Focus Protection
+            </div>
+
+
+            <div class="settings-box">
+
+
+                <div class="setting">
+
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            🛡
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Focus Protection
+                            </div>
+
+                            <div class="setting-description">
+                                Automatically protect selected apps during focus.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="switch active"
+                        id="protection"
+                        onclick="toggleSwitch(this, 'protection')"
+                    >
+
+                        <div class="circle"></div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div
+                    class="setting"
+                    onclick="window.location.href='blocked'"
+                >
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            📱
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Blocked Apps
+                            </div>
+
+                            <div class="setting-description">
+                                Manage the apps FocusZone protects.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    class="setting"
+                    onclick="window.location.href='focus'"
+                >
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            ⏱
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Focus Session
+                            </div>
+
+                            <div class="setting-description">
+                                Set your default focus session duration.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             STUDY AREA
+        ========================= -->
+
+        <div class="section">
+
+
+            <div class="section-title">
+                Study Area
+            </div>
+
+
+            <div class="settings-box">
+
+
+                <div
+                    class="setting"
+                    onclick="window.location.href='location'"
+                >
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            📍
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Study Areas
+                            </div>
+
+                            <div class="setting-description">
+                                Manage your saved study locations.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+
+                <div class="setting">
+
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            📡
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Location Detection
+                            </div>
+
+                            <div class="setting-description">
+                                Allow FocusZone to detect your study area.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="switch"
+                        id="location"
+                        onclick="toggleSwitch(this, 'location')"
+                    >
+
+                        <div class="circle"></div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             NOTIFICATIONS
+        ========================= -->
+
+        <div class="section">
+
+
+            <div class="section-title">
+                Notifications
+            </div>
+
+
+            <div class="settings-box">
+
+
+                <div class="setting">
+
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            🔔
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Focus Reminders
+                            </div>
+
+                            <div class="setting-description">
+                                Remind me when it is time to focus.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="switch active"
+                        id="reminders"
+                        onclick="toggleSwitch(this, 'reminders')"
+                    >
+
+                        <div class="circle"></div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="setting">
+
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            🚫
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Protection Alerts
+                            </div>
+
+                            <div class="setting-description">
+                                Notify me when app protection starts or ends.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="switch active"
+                        id="alerts"
+                        onclick="toggleSwitch(this, 'alerts')"
+                    >
+
+                        <div class="circle"></div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             APPEARANCE
+        ========================= -->
+
+        <div class="section">
+
+
+            <div class="section-title">
+                Appearance
+            </div>
+
+
+            <div class="settings-box">
+
+
+                <div class="setting">
+
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            ◐
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Theme
+                            </div>
+
+                            <div class="setting-description">
+                                Choose how FocusZone looks.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <select id="theme">
+
+                        <option>
+                            Dark
+                        </option>
+
+                        <!-- <option>
+                            Light
+                        </option>
+
+                        <option>
+                            System
+                        </option> -->
+
+                    </select>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             PRIVACY
+        ========================= -->
+
+        <div class="section">
+
+
+            <div class="section-title">
+                Privacy & Security
+            </div>
+
+
+            <div class="settings-box">
+
+
+                <div
+                    class="setting"
+                    onclick="openSetting('privacy')"
+                >
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            🔐
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Privacy
+                            </div>
+
+                            <div class="setting-description">
+                                Control your location and activity data.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    class="setting"
+                    onclick="openSetting('devices')"
+                >
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            💻
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Active Devices
+                            </div>
+
+                            <div class="setting-description">
+                                View devices connected to your account.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             SUPPORT
+        ========================= -->
+
+        <div class="section">
+
+
+            <div class="section-title">
+                Support
+            </div>
+
+
+            <div class="settings-box">
+
+
+                <div
+                    class="setting"
+                    onclick="openSetting('help')"
+                >
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            ?
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Help Center
+                            </div>
+
+                            <div class="setting-description">
+                                Get help with FocusZone.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="setting"
+                    onclick="openFeedback()"
+                >
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            ✉
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Send Feedback
+                            </div>
+
+                            <div class="setting-description">
+                                Tell us how we can improve FocusZone.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    class="setting"
+                    onclick="openSetting('about')"
+                >
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            ℹ
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                About FocusZone
+                            </div>
+
+                            <div class="setting-description">
+                                Version 1.0.0 · Terms · Privacy Policy
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================
+             ACCOUNT
+        ========================= -->
+
+        <div class="section">
+
+         
+            <div class="section-title">
+                Account
+            </div>
+
+         <a href="/" class="app-link">
+            <div class="settings-box">
+
+
+                <div
+                    class="setting danger"
+                    onclick="logout()"
+                >
+
+                    <div class="setting-left">
+
+                        <div class="icon">
+                            ↪
+                        </div>
+
+
+                        <div>
+
+                            <div class="setting-name">
+                                Log Out
+                            </div>
+
+                            <div class="setting-description">
+                                Sign out from this device.
+                            </div>
+
+                        </div>
+                     
+                    </div>
+
+
+                    <div class="arrow">
+                        ›
+                    </div>
+
+                </div>
+
+
+            </div>
+         </a>
+        </div>
+
+
+
+        <div class="version">
+            FocusZone · Version 1.0.0
+        </div>
+
+
+    </div>
+<!-- FEEDBACK POPUP -->
+
+<div id="feedbackModal" class="feedback-modal">
+
+    <div class="feedback-box">
+
+        <button
+            class="feedback-close"
+            onclick="closeFeedback()"
+        >
+            ×
+        </button>
+
+        <h2>Send Feedback</h2>
+
+        <p>
+            Tell us how we can improve FocusZone.
+        </p>
+
+        <textarea
+            id="feedbackMessage"
+            placeholder="Write your feedback here..."
+        ></textarea>
+
+        <button
+            class="feedback-submit"
+            onclick="submitFeedback()"
+        >
+            Send Feedback
+        </button>
+
+    </div>
+
+</div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+        function openFeedback() {
+
+    document
+        .getElementById("feedbackModal")
+        .classList.add("show");
+
+}
+
+
+function closeFeedback() {
+
+    document
+        .getElementById("feedbackModal")
+        .classList.remove("show");
+
+}
+
+
+async function submitFeedback() {
+
+    const userId =
+        localStorage.getItem("user_id");
+
+    const message =
+        document
+        .getElementById("feedbackMessage")
+        .value
+        .trim();
+
+
+    if (!userId) {
+
+        alert("Please login first.");
+
+        return;
+    }
+
+
+    if (!message) {
+
+        alert("Please write your feedback.");
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                "/feedback",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        user_id: Number(userId),
+
+                        message: message
+
+                    })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            alert(
+                result.detail ||
+                "Unable to send feedback."
+            );
+
+            return;
+        }
+
+
+        alert(
+            "Thank you for your feedback! ❤️"
+        );
+
+
+        document
+            .getElementById("feedbackMessage")
+            .value = "";
+
+
+        closeFeedback();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Feedback Error:",
+            error
+        );
+
+        alert(
+            "Unable to connect to server."
+        );
+
+    }
+
+}
+
+
+        function toggleSwitch(element, name) {
+
+            element.classList.toggle("active");
+
+
+            let active =
+                element.classList.contains("active");
+
+
+            localStorage.setItem(
+                name,
+                active
+            );
+
+        }
+
+
+
+        window.onload = function () {
+
+
+            let settings = [
+                "protection",
+                "location",
+                "reminders",
+                "alerts"
+            ];
+
+
+            settings.forEach(function(name) {
+
+
+                let saved =
+                    localStorage.getItem(name);
+
+
+                if (saved === "true") {
+
+                    let element =
+                        document.getElementById(name);
+
+
+                    if (element) {
+
+                        element.classList.add(
+                            "active"
+                        );
+
+                    }
+
+                }
+
+
+                if (saved === "false") {
+
+                    let element =
+                        document.getElementById(name);
+
+
+                    if (element) {
+
+                        element.classList.remove(
+                            "active"
+                        );
+
+                    }
+
+                }
+
+            });
+
+        };
+
+
+
+        function manageAccount() {
+
+            alert(
+                "Account management will open here."
+            );
+
+        }
+
+
+
+        function openSetting(name) {
+
+            alert(
+                name +
+                " settings will open here."
+            );
+
+        }
+
+
+
+        // function logout() {
+
+        //     let answer =
+        //         confirm(
+        //             "Are you sure you want to log out?"
+        //         );
+
+
+            if (answer) {
+
+                window.location.href ="/";
+
+            }
+
+        // }
+
+    </script>
+
+
+</body>
+
+</html

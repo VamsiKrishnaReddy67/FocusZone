@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- BASIC SETTINGS -->
+
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Location Detected Areas | Focus Zone</title>
+
+    <link rel="icon" href="logo.jpg">
+
+
+    <!-- MAP CSS -->
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+
+    <style>
+
+        /* =========================
+           BASIC
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+
+            background: #101010;
+
+            color: white;
+
+            min-height: 100vh;
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================= */
+
+        .sidebar {
+
+            width: 218px;
+
+            height: 100vh;
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            background: #111111;
+
+            border-right: 1px solid #292929;
+
+            padding: 18px 12px;
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            padding-left: 10px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .logo span {
+
+            color: #d8c1a3;
+        }
+
+
+        /* SEARCH */
+
+        .search {
+
+            background: #1a1a1a;
+
+            border: 1px solid #303030;
+
+            padding: 9px 12px;
+
+            border-radius: 7px;
+
+            color: #888;
+
+            font-size: 12px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* MENU */
+
+        .menu-title {
+
+            color: #666;
+
+            font-size: 10px;
+
+            margin: 0 10px 8px;
+        }
+
+
+        .menu a {
+
+            display: block;
+
+            color: #999;
+
+            text-decoration: none;
+
+            padding: 10px;
+
+            margin: 3px 0;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+        }
+
+
+        .menu a:hover,
+        .menu .active {
+
+            background: #292929;
+
+            color: white;
+        }
+
+
+        /* PROFILE */
+
+        .profile {
+
+            position: absolute;
+
+            bottom: 18px;
+
+            left: 12px;
+            right: 12px;
+
+            border-top: 1px solid #292929;
+
+            padding-top: 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .profile-icon {
+
+            width: 34px;
+            height: 34px;
+
+            border-radius: 50%;
+
+            background: #d8c1a3;
+
+            color: #111;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+
+        .profile-name {
+
+            font-size: 12px;
+        }
+
+
+        .profile-plan {
+
+            color: #666;
+
+            font-size: 10px;
+
+            margin-top: 3px;
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .main {
+
+            margin-left: 218px;
+
+            padding: 30px;
+
+            max-width: 1500px;
+        }
+
+
+        h1 {
+
+            font-size: 25px;
+
+            margin-bottom: 6px;
+        }
+
+
+        .subtitle {
+
+            color: #777;
+
+            font-size: 12px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* =========================
+           MAP AREA
+        ========================= */
+
+        .map-section {
+
+            background: #191919;
+
+            border: 1px solid #292929;
+
+            border-radius: 9px;
+
+            padding: 20px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .section-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 15px;
+        }
+
+
+        .section-header h2 {
+
+            font-size: 16px;
+        }
+
+
+        .section-header span {
+
+            color: #777;
+
+            font-size: 11px;
+        }
+
+
+        /* MAP */
+
+        #map {
+
+            width: 100%;
+
+            height: 400px;
+
+            border-radius: 8px;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================
+           LOCATION SETTINGS
+        ========================= */
+
+        .settings {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 15px;
+
+            margin-bottom: 15px;
+        }
+
+
+        .box {
+
+            background: #191919;
+
+            border: 1px solid #292929;
+
+            border-radius: 9px;
+
+            padding: 20px;
+        }
+
+
+        .box h2 {
+
+            font-size: 15px;
+
+            margin-bottom: 15px;
+        }
+
+
+        label {
+
+            display: block;
+
+            color: #888;
+
+            font-size: 11px;
+
+            margin-bottom: 7px;
+        }
+
+
+        input {
+
+            width: 100%;
+
+            background: #151515;
+
+            color: white;
+
+            border: 1px solid #303030;
+
+            border-radius: 7px;
+
+            padding: 11px;
+
+            outline: none;
+
+            margin-bottom: 15px;
+        }
+
+
+        input:focus {
+
+            border-color: #d8c1a3;
+        }
+
+
+        /* RADIUS */
+
+        .radius {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .radius input {
+
+            margin: 0;
+
+            flex: 1;
+        }
+
+
+        .radius span {
+
+            color: #888;
+
+            font-size: 12px;
+        }
+
+
+        /* =========================
+           BUTTONS
+        ========================= */
+
+        .buttons {
+
+            display: flex;
+
+            gap: 10px;
+        }
+
+
+        button {
+
+            padding: 11px 20px;
+
+            border-radius: 7px;
+
+            border: none;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .location-button {
+
+            background: #292929;
+
+            color: white;
+        }
+
+
+        .save-button {
+
+            background: #d8c1a3;
+
+            color: #111;
+        }
+
+
+        button:hover {
+
+            opacity: 0.85;
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status {
+
+            color: #777;
+
+            font-size: 11px;
+
+            margin-top: 12px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+
+                width: 70px;
+            }
+
+
+            .logo {
+
+                font-size: 0;
+            }
+
+
+            .logo span {
+
+                font-size: 18px;
+            }
+
+
+            .search,
+            .menu-title,
+            .profile-name {
+
+                display: none;
+            }
+
+
+            .menu a {
+
+                font-size: 0;
+
+                text-align: center;
+            }
+
+
+            .main {
+
+                margin-left: 70px;
+
+                padding: 20px;
+            }
+
+
+            .settings {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================= -->
+
+    <div class="sidebar">
+
+
+        <div class="logo">
+
+            Focus<span>Zone</span>
+
+        </div>
+
+
+        <!-- <div class="search">
+
+            Search... &nbsp;&nbsp; Ctrl K
+
+        </div> -->
+
+
+        <div class="menu-title">
+
+            MENU
+
+        </div>
+
+
+        <div class="menu">
+
+            <a href="/home">
+                ▦ &nbsp; Dashboard
+            </a>
+
+            <a href="/focus">
+                ◷ &nbsp; Focus
+            </a>
+
+            <a href="/tasks">
+                ✓ &nbsp; Tasks
+            </a>
+
+            <a href="/location" class="active">
+                ▣ &nbsp; Location Detected Areas 
+            </a>
+
+            <a href="/blocked">
+                ◉ &nbsp; Blocked Apps
+            </a>
+
+            <a href="/statistics">
+                ◇ &nbsp; Statistics
+            </a>
+
+            <a href="/settings">
+                ⚙ &nbsp; Settings
+            </a>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <div class="profile">
+
+            <div class="profile-icon">
+                V
+            </div>
+
+            <div class="profile-name">
+
+                Vamsi
+
+                <div class="profile-plan">
+                    Free Plan
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================= -->
+
+    <div class="main">
+
+
+        <h1>
+            Study Areas
+        </h1>
+
+
+        <p class="subtitle">
+            Choose a location where Focus Zone should protect your focus.
+        </p>
+
+
+
+        <!-- =========================
+             MAP
+        ========================= -->
+
+        <div class="map-section">
+
+
+            <div class="section-header">
+
+                <h2>
+                    Location Detected Areas
+                </h2>
+
+                <span>
+                    Select a location on the map
+                </span>
+
+            </div>
+
+
+            <div id="map"></div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             SETTINGS
+        ========================= -->
+
+        <div class="settings">
+
+
+            <!-- AREA NAME -->
+
+            <div class="box">
+
+                <h2>
+                    Study Area
+                </h2>
+
+
+                <label>
+                    Area Name
+                </label>
+
+
+                <input
+                    type="text"
+                    id="areaName"
+                    placeholder="Example: Study Room"
+                >
+
+
+                <label>
+                    Selected Location
+                </label>
+
+
+                <input
+                    type="text"
+                    id="location"
+                    placeholder="Click on the map"
+                    readonly
+                >
+
+            </div>
+
+
+
+            <!-- RADIUS -->
+
+            <div class="box">
+
+                <h2>
+                    Protection Radius
+                </h2>
+
+
+                <label>
+                    Radius
+                </label>
+
+
+                <div class="radius">
+
+                    <input
+                        type="number"
+                        id="radius"
+                        value="100"
+                        min="50"
+                    >
+
+                    <span>
+                        meters
+                    </span>
+
+                </div>
+
+
+                <p class="status" id="status">
+
+                    No location selected
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================
+             BUTTONS
+        ========================= -->
+
+        <div class="buttons">
+
+            <button
+                class="location-button"
+                onclick="getLocation()"
+            >
+                📍 Use My Location
+            </button>
+
+
+            <button
+                class="save-button"
+                onclick="saveArea()"
+            >
+                Save Study Area
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         MAP JAVASCRIPT
+    ========================= -->
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+    <script>
+
+        /* =========================
+           MAP SETTINGS
+        ========================= */
+
+        let map = L.map("map").setView(
+            [16.5062, 80.6480],
+            13
+        );
+
+
+        L.tileLayer(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        ).addTo(map);
+
+
+        let marker;
+
+        let circle;
+
+
+        /* =========================
+           MAP CLICK
+        ========================= */
+
+        map.on("click", function(event) {
+
+            let latitude =
+                event.latlng.lat;
+
+            let longitude =
+                event.latlng.lng;
+
+
+            selectLocation(
+                latitude,
+                longitude
+            );
+
+        });
+
+
+        /* =========================
+           SELECT LOCATION
+        ========================= */
+
+        function selectLocation(
+            latitude,
+            longitude
+        ) {
+
+            if (marker) {
+
+                map.removeLayer(marker);
+
+            }
+
+
+            if (circle) {
+
+                map.removeLayer(circle);
+
+            }
+
+
+            marker =
+                L.marker([
+                    latitude,
+                    longitude
+                ]).addTo(map);
+
+
+            circle =
+                L.circle([
+                    latitude,
+                    longitude
+                ], {
+
+                    radius: 100,
+
+                    color: "#d8c1a3"
+
+                }).addTo(map);
+
+
+            document.getElementById("location").value =
+                latitude.toFixed(5) +
+                ", " +
+                longitude.toFixed(5);
+
+
+            document.getElementById("status").innerText =
+                "Location selected";
+
+        }
+
+
+        /* =========================
+           USE CURRENT LOCATION
+        ========================= */
+
+        function getLocation() {
+
+            if (!navigator.geolocation) {
+
+                alert(
+                    "Location is not supported by your browser."
+                );
+
+                return;
+            }
+
+
+            navigator.geolocation.getCurrentPosition(
+                
+                function(position) {
+
+                    let latitude =
+                        position.coords.latitude;
+
+                    let longitude =
+                        position.coords.longitude;
+
+
+                    map.setView(
+                        [latitude, longitude],
+                        16
+                    );
+
+
+                    selectLocation(
+                        latitude,
+                        longitude
+                    );
+
+                },
+
+                function() {
+
+                    alert(
+                        "Unable to get your location."
+                    );
+
+                }
+
+            );
+
+        }
+
+
+        /* =========================
+           SAVE AREA
+        ========================= */
+        async function saveArea() {
+
+    const userId =
+        localStorage.getItem("user_id");
+
+
+    if (!userId) {
+
+        alert("Please login first.");
+
+        window.location.href = "/";
+
+        return;
+    }
+
+
+    const name =
+        document.getElementById("areaName").value.trim();
+
+
+    const location =
+        document.getElementById("location").value.trim();
+
+
+    const radius =
+        document.getElementById("radius").value;
+
+
+    if (name === "" || location === "") {
+
+        alert(
+            "Please select a location and enter an area name."
+        );
+
+        return;
+    }
+
+
+    /*
+       location contains:
+
+       latitude, longitude
+
+       Example:
+
+       16.50620, 80.64800
+    */
+
+
+    const coordinates =
+        location.split(",");
+
+
+    const latitude =
+        parseFloat(coordinates[0]);
+
+
+    const longitude =
+        parseFloat(coordinates[1]);
+
+
+    if (
+        Number.isNaN(latitude) ||
+        Number.isNaN(longitude)
+    ) {
+
+        alert("Invalid location.");
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch("/save-location", {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+               body: JSON.stringify({
+
+    location_name: name,
+
+    latitude: latitude,
+
+    longitude: longitude,
+
+    radius: Number(radius),
+
+    user_id: Number(userId)
+
+})
+
+            });
+
+
+        if (!response.ok) {
+
+            alert("Unable to save location.");
+
+            return;
+        }
+
+
+        document.getElementById(
+            "status"
+        ).innerText =
+            "Study Area saved successfully";
+
+
+        alert(
+            "Study Area Saved Successfully!"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "Cannot connect to FocusZone server."
+        );
+
+    }
+
+}
+     
+      async function loadLocations() {
+
+    const userId =
+        localStorage.getItem("user_id");
+
+
+    if (!userId) {
+
+        alert("Please login first.");
+
+        window.location.href = "/";
+
+        return;
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/user-locations/${userId}`
+            );
+
+
+        if (!response.ok) {
+
+            console.log(
+                "Unable to load locations."
+            );
+
+            return;
+        }
+
+
+        const locations =
+            await response.json();
+
+
+        if (locations.length === 0) {
+
+            return;
+        }
+
+
+        const lastLocation =
+            locations[0];
+
+
+        /*
+           Show the latest saved
+           location on the map.
+        */
+
+
+        map.setView(
+            [
+                Number(lastLocation.latitude),
+                Number(lastLocation.longitude)
+            ],
+            16
+        );
+
+
+        selectLocation(
+
+            Number(lastLocation.latitude),
+
+            Number(lastLocation.longitude)
+
+        );
+
+
+        document.getElementById(
+            "areaName"
+        ).value =
+            lastLocation.location_name;
+
+
+        document.getElementById(
+            "status"
+        ).innerText =
+            "Saved Study Area loaded";
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+     window.addEventListener(
+    "load",
+    loadLocations
+);
+        
+
+        
+
+    </script>
+
+
+</body>
+
+</html>

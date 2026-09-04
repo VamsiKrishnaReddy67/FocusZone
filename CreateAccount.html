@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Account | Focus Zone</title>
+
+    <link rel="icon" href="logo.jpg">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+
+            background: #101010;
+
+            color: white;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+        }
+
+        .container {
+            width: 400px;
+
+            background: #171717;
+
+            border: 1px solid #292929;
+
+            border-radius: 14px;
+
+            padding: 35px;
+
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            width: 55px;
+
+            height: 55px;
+
+            border-radius: 12px;
+
+            display: block;
+
+            margin: 0 auto 20px;
+
+            object-fit: cover;
+        }
+
+        h1 {
+            text-align: center;
+
+            font-size: 27px;
+
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+
+            color: #888;
+
+            font-size: 13px;
+
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+
+            font-size: 13px;
+
+            color: #bbb;
+
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+
+            background: #111;
+
+            border: 1px solid #303030;
+
+            color: white;
+
+            padding: 13px;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            margin-bottom: 18px;
+
+            font-size: 14px;
+        }
+
+        input:focus {
+            border-color: #d8c1a3;
+        }
+
+        button {
+            width: 100%;
+
+            padding: 13px;
+
+            background: #e4c9a5;
+
+            color: #111;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            font-size: 14px;
+        }
+
+        button:hover {
+            background: #f0d8b8;
+        }
+
+        .back {
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 12px;
+
+            color: #777;
+        }
+
+        .back a {
+            color: #d8c1a3;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        #message {
+            text-align: center;
+
+            margin-top: 15px;
+
+            font-size: 12px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+
+        <img
+            src="logo.jpg"
+            class="logo"
+            alt="Focus Zone"
+        >
+
+
+        <h1>Create Account</h1>
+
+
+        <p class="subtitle">
+            Create your Focus Zone account
+        </p>
+
+
+        <form id="registerForm">
+
+
+            <label>
+                Name
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Enter first name"
+                required
+            >
+
+
+            <label>
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Create your password"
+                minlength="6"
+                required
+            >
+
+
+            <button type="submit">
+
+                Create Account
+
+            </button>
+
+
+        </form>
+
+
+        <p id="message"></p>
+
+
+        <p class="back">
+
+            Already have an account?
+
+            <a href="/">
+                Login
+            </a>
+
+        </p>
+
+
+    </div>
+
+
+    <script>
+
+        document
+            .getElementById("registerForm")
+            .addEventListener("submit", async function(event) {
+
+                event.preventDefault();
+
+
+                const name =
+                    document
+                        .getElementById("name")
+                        .value
+                        .trim();
+
+
+                const email =
+                    document
+                        .getElementById("email")
+                        .value
+                        .trim();
+
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+
+                const message =
+                    document
+                        .getElementById("message");
+
+
+                try {
+
+                    const response = await fetch(
+                        "http://127.0.0.1:8000/register",
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                name: name,
+
+                                email: email,
+
+                                password: password
+
+                            })
+
+                        }
+                    );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (response.ok) {
+
+                        message.style.color =
+                            "#8ed99a";
+
+                        message.textContent =
+                            "Account created successfully!";
+
+
+                        setTimeout(function() {
+
+                            window.location.href ="/";
+
+                        }, 1200);
+
+
+                    } else {
+
+                        message.style.color =
+                            "#ff9999";
+
+                        message.textContent =
+                            data.detail ||
+                            "Account creation failed.";
+
+                    }
+
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    message.style.color =
+                        "#ff9999";
+
+                    message.textContent =
+                        "Cannot connect to FocusZone server.";
+
+                }
+
+            });
+
+    </script>
+
+
+</body>
+
+</html>
