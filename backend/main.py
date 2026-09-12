@@ -67,14 +67,22 @@ class AppSelection(BaseModel):
     apps: list[str]
 
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv(BASE_DIR / ".env")
+load_dotenv(BASE_DIR.parent / ".env")
+
+
 def get_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="5432",
-        database="focuszone",
-        port=3306
-    )
+        host=os.getenv("mysql-3bb599d1-alluvamsi99999-1b93.b.aivencloud.com"),
+        user=os.getenv("avnadmin"),
+        password=os.getenv("AVNS_1Gqe367vYoO6ahtuSIB"),
+        database=os.getenv("defaultdb"),
+        port=int(os.getenv("20954")),
+        ssl_ca="/etc/secrets/ca.pem"
+        )
 
 
 def hash_password(password):
