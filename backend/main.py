@@ -6,13 +6,20 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import mysql.connector
 import hashlib
+import os
+from dotenv import load_dotenv
 
 app = FastAPI()
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "http://127.0.0.1:8000",
+        "http://localhost:8000",
+        "https://focuszone-backend.onrender.com"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
@@ -75,14 +82,19 @@ load_dotenv(BASE_DIR.parent / ".env")
 
 
 def get_connection():
+    if os.getenv("RENDER"):
+        ssl_ca = "/etc/secrets/ca.pem"
+    else:
+        ssl_ca = str(BASE_DIR / "ca.pem")
+
     return mysql.connector.connect(
         host=os.getenv("mysql-3bb599d1-alluvamsi99999-1b93.b.aivencloud.com"),
         user=os.getenv("avnadmin"),
         password=os.getenv("AVNS_1Gqe367vYoO6ahtuSIB"),
         database=os.getenv("defaultdb"),
         port=int(os.getenv("20954")),
-        ssl_ca="/etc/secrets/ca.pem"
-        )
+        ssl_ca=ssl_ca
+    )
 
 
 def hash_password(password):
