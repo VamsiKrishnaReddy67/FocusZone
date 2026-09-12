@@ -88,11 +88,11 @@ def get_connection():
         ssl_ca = str(BASE_DIR / "ca.pem")
 
     return mysql.connector.connect(
-        host=os.getenv("mysql-3bb599d1-alluvamsi99999-1b93.b.aivencloud.com"),
-        user=os.getenv("avnadmin"),
-        password=os.getenv("AVNS_1Gqe367vYoO6ahtuSIB"),
-        database=os.getenv("defaultdb"),
-        port=int(os.getenv("20954")),
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_NAME"),
+        port=int(os.getenv("DB_PORT")),
         ssl_ca=ssl_ca
     )
 
