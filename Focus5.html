@@ -1024,16 +1024,7 @@
                 return;
 
             }
-            await fetch(`${API_URL}/focus-session`, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        user_id: Number(userId),
-        duration_minutes: 30
-    })
-});
+           
 
 
             try {
