@@ -935,10 +935,12 @@
                 sessionId;
 
 
-            const start =
-                new Date(
-                    startTime
-                );
+          const start =
+    new Date(
+        startTime.endsWith("Z")
+            ? startTime
+            : startTime + "Z"
+    );
 
 
             endTime =
