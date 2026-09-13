@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import mysql.connector
+from mysql.connector import pooling
 import hashlib
 import os
 from dotenv import load_dotenv
@@ -81,20 +82,29 @@ load_dotenv(BASE_DIR / ".env")
 load_dotenv(BASE_DIR.parent / ".env")
 
 
-def get_connection():
-    if os.getenv("RENDER"):
-        ssl_ca = "/etc/secrets/ca.pem"
-    else:
-        ssl_ca = str(BASE_DIR / "ca.pem")
+# =========================================
+# MYSQL CONNECTION POOL
+# =========================================
 
-    return mysql.connector.connect(
-        host=os.getenv("DB_HOST"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        database=os.getenv("DB_NAME"),
-        port=int(os.getenv("DB_PORT")),
-        ssl_ca=ssl_ca
-    )
+if os.getenv("RENDER"):
+    ssl_ca = "/etc/secrets/ca.pem"
+else:
+    ssl_ca = str(BASE_DIR / "ca.pem")
+
+db_pool = pooling.MySQLConnectionPool(
+    pool_name="focuszone_pool",
+    pool_size=5,
+    host=os.getenv("DB_HOST"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD"),
+    database=os.getenv("DB_NAME"),
+    port=int(os.getenv("DB_PORT")),
+    ssl_ca=ssl_ca
+)
+
+
+def get_connection():
+    return db_pool.get_connection()
 
 
 def hash_password(password):
