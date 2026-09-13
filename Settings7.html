@@ -1637,6 +1637,7 @@
     ========================= -->
 
     <script>
+        const API_URL = "https://focuszone-backend.onrender.com";
         function openFeedback() {
 
     document
@@ -1687,7 +1688,7 @@ async function submitFeedback() {
 
         const response =
             await fetch(
-                "/feedback",
+                `${API_URL}/feedback`,
                 {
 
                     method: "POST",

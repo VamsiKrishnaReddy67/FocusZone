@@ -1409,6 +1409,7 @@
 
 </body>
 <script>
+    const API_URL = "https://focuszone-backend.onrender.com";
     
 
 async function loadWeeklyFocus() {
@@ -1434,7 +1435,7 @@ async function loadWeeklyFocus() {
 
         const response =
             await fetch(
-                `/focus-week/${userId}`
+                `${API_URL}/focus-week/${userId}`
             );
 
 
@@ -1980,7 +1981,7 @@ async function loadStatistics() {
 
         const response =
             await fetch(
-                `/focus-summary/${userId}`
+                `${API_URL}/focus-summary/${userId}`
             );
 
         if (!response.ok) {

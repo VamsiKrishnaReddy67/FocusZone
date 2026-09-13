@@ -778,6 +778,7 @@
 
 
     <script>
+        const API_URL = "https://focuszone-backend.onrender.com";
 
         /* =========================
            MAP SETTINGS
@@ -1006,7 +1007,7 @@
     try {
 
         const response =
-            await fetch("/save-location", {
+            await fetch(`${API_URL}/save-location`, {
 
                 method: "POST",
 
@@ -1086,7 +1087,7 @@
 
         const response =
             await fetch(
-                `/user-locations/${userId}`
+                `${API_URL}/user-locations/${userId}`
             );
 
 

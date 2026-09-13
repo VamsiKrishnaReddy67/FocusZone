@@ -731,6 +731,7 @@
 
 
 <script>
+    const API_URL = "https://focuszone-backend.onrender.com";
     let cachedBlockedApps = [];
     let cachedStudyArea = null;
     async function loadProtectionData() {
@@ -743,7 +744,7 @@
 
         // Load blocked apps
         const appsResponse = await fetch(
-            `/user-blocked-apps/${userId}`
+            `${API_URL}/user-blocked-apps/${userId}`
         );
 
         if (appsResponse.ok) {
@@ -758,7 +759,7 @@
 
         // Load saved location
         const locationResponse = await fetch(
-            `/user-locations/${userId}`
+            `${API_URL}/user-locations/${userId}`
         );
 
         if (locationResponse.ok) {
@@ -840,7 +841,7 @@ selectedApps.push(appName);
     try {
 
         const response = await fetch(
-            "/user-apps",
+            `${API_URL}/user-apps`,
             {
 
                 method: "POST",
@@ -934,7 +935,7 @@ async function loadBlockedApps() {
 
 
         const response = await fetch(
-            `/user-blocked-apps/${userId}`
+            `${API_URL}/user-blocked-apps/${userId}`
         );
 
 
@@ -1064,7 +1065,7 @@ async function checkAppAccess(event, appName, appUrl) {
         // =====================================
 
         const appsResponse = await fetch(
-            `/user-blocked-apps/${userId}`
+            `${API_URL}/user-blocked-apps/${userId}`
         );
 
         if (!appsResponse.ok) {
@@ -1143,7 +1144,7 @@ const isBlocked = appsArray.some(app => {
 // =====================================
 
 const locationResponse = await fetch(
-    `/user-locations/${userId}`
+    `${API_URL}/user-locations/${userId}`
 );
 
 if (!locationResponse.ok) {
