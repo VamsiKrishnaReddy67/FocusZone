@@ -1082,7 +1082,7 @@ async function addTask() {
 
     try {
 
-        const response = await fetch(`${API_URL}/save-task`, {
+        const response = await fetch(`/save-task`, {
 
             method: "POST",
 
@@ -1144,7 +1144,7 @@ async function loadTasks() {
     try {
 
         const response =
-            await fetch(`${API_URL}/user-tasks/${userId}`);
+            await fetch(`/user-tasks/${userId}`);
 
         console.log(
             "GET /user-tasks response:",
@@ -1276,7 +1276,7 @@ async function completeTask(checkbox, taskId) {
 
         const response =
             await fetch(
-                `${API_URL}/complete-task/${taskId}`,
+                `/complete-task/${taskId}`,
                 {
                     method: "PUT",
 
@@ -1357,7 +1357,7 @@ async function deleteTask(button, taskId) {
 
         const response =
             await fetch(
-                `${API_URL}/delete-task/${taskId}`,
+                `/delete-task/${taskId}`,
                 {
                     method: "DELETE"
                 }
